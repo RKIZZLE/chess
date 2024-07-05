@@ -198,9 +198,9 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
         source.mark();
 
         if (source.isWhitePiece) {
-            if (r > 0 && tileMatrix[r-1][c].isEmpty()) { // Ensure within bounds for row
+            if (r > 0 && tileMatrix[r-1][c].isEmpty()) {
                 tileMatrix[r-1][c].mark();
-                if (source.tileRow == 6 && r-2 >= 0 && tileMatrix[r-2][c].isEmpty()) { // Ensure within bounds for row and only move if second tile is empty
+                if (source.tileRow == 6 && r-2 >= 0 && tileMatrix[r-2][c].isEmpty()) {
                     tileMatrix[r-2][c].mark();
                 }
             }
