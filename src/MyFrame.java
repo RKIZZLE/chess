@@ -10,8 +10,6 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
     private Thread gameThread;
     boolean setBlack = true;
 
-    boolean blackFirstMove = true;
-    boolean whiteFirstMove = true;
 
     Tile selectedTile = null; // Track the selected tile
     JLabel selectedPiece = null; // Track the selected piece
@@ -194,58 +192,72 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
         }
     }
 
-    public void pawnPath(Tile source){
+    public void pawnPath(Tile source) {
         int r = source.tileRow;
         int c = source.tileColumn;
         source.mark();
 
+        if (source.isWhitePiece) {
+            if (r > 0 && tileMatrix[r-1][c].isEmpty()) { // Ensure within bounds for row
+                tileMatrix[r-1][c].mark();
+                if (source.tileRow == 6 && r-2 >= 0 && tileMatrix[r-2][c].isEmpty()) { // Ensure within bounds for row and only move if second tile is empty
+                    tileMatrix[r-2][c].mark();
+                }
+            }
 
-        if (source.isWhitePiece && (tileMatrix[r-1][c].isEmpty() || tileMatrix[r-1][c].isOpposingPiece(source))){
-            if (source.tileRow == 6){
-                for (int i=r; i>=r-2; i--){
-                    tileMatrix[i][c].mark();
-                    whiteFirstMove = false;
-                }
-            }else {
-                for (int i=r; i>=r-1; i--){
-                    tileMatrix[i][c].mark();
-                }
+            if (r > 0 && c-1 >= 0 && tileMatrix[r-1][c-1].isOpposingPiece(source)) {
+                tileMatrix[r-1][c-1].mark();
+            }
+
+            if (r > 0 && c+1 < tileMatrix[0].length && tileMatrix[r-1][c+1].isOpposingPiece(source)) {
+                tileMatrix[r-1][c+1].mark();
             }
         }
 
-        if (source.isBlackPiece && (tileMatrix[r+1][c].isEmpty() || tileMatrix[r+1][c].isOpposingPiece(source))){
-            if (source.tileRow == 1){
-                for (int i=r; i<=r+2; i++){
-                    tileMatrix[i][c].mark();
-                    blackFirstMove = false;
+        if (source.isBlackPiece) {
+            if (r < tileMatrix.length - 1 && tileMatrix[r+1][c].isEmpty()) {
+                tileMatrix[r+1][c].mark();
+                if (source.tileRow == 1 && r+2 < tileMatrix.length && tileMatrix[r+2][c].isEmpty()) {
+                    tileMatrix[r+2][c].mark();
                 }
-            } else{
-                for (int i=r; i<=r+1; i++){
-                    tileMatrix[i][c].mark();
-                }
+            }
+
+            if (r < tileMatrix.length - 1 && c-1 >= 0 && tileMatrix[r+1][c-1].isOpposingPiece(source)) {
+                tileMatrix[r+1][c-1].mark();
+            }
+
+            if (r < tileMatrix.length - 1 && c+1 < tileMatrix[0].length && tileMatrix[r+1][c+1].isOpposingPiece(source)) {
+                tileMatrix[r+1][c+1].mark();
             }
         }
     }
-    public boolean pawnWin(Tile pawn){
+    public boolean pawnWin(Tile pawn) {
         int r = pawn.tileRow;
         int c = pawn.tileColumn;
         boolean markKing = false;
 
-        if (pawn.isWhitePiece && (tileMatrix[r-1][c].isOpposingPiece(pawn))){
-            if (tileMatrix[r-1][c].hasKing) {
-                markKing = true;
-            }
-
-        }
-
-        if (pawn.isBlackPiece && (tileMatrix[r+1][c].isEmpty() || tileMatrix[r+1][c].isOpposingPiece(pawn))){
-            for (int i=r; i<=r+1; i++){
-                if (tileMatrix[i][c].hasKing) {
+        if (pawn.isWhitePiece) {
+            if (r > 0) {
+                if (c > 0 && tileMatrix[r-1][c-1].isOpposingPiece(pawn) && tileMatrix[r-1][c-1].hasKing) {
                     markKing = true;
-                    break;
+                }
+                if (c < tileMatrix[0].length - 1 && tileMatrix[r-1][c+1].isOpposingPiece(pawn) && tileMatrix[r-1][c+1].hasKing) {
+                    markKing = true;
                 }
             }
         }
+
+        if (pawn.isBlackPiece) {
+            if (r < tileMatrix.length - 1) {
+                if (c > 0 && tileMatrix[r+1][c-1].isOpposingPiece(pawn) && tileMatrix[r+1][c-1].hasKing) {
+                    markKing = true;
+                }
+                if (c < tileMatrix[0].length - 1 && tileMatrix[r+1][c+1].isOpposingPiece(pawn) && tileMatrix[r+1][c+1].hasKing) {
+                    markKing = true;
+                }
+            }
+        }
+
         return markKing;
     }
 
