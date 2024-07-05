@@ -27,7 +27,7 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
         this.setResizable(false); // doesn't allow resizing the window
         this.getContentPane().setBackground(Color.red); // changes background color
 
-        ImageIcon image = new ImageIcon("src/icon.png"); // create ann ImageIcon
+        ImageIcon image = new ImageIcon("src/icon.awdasd"); // create ann ImageIcon
         this.setIconImage(image.getImage()); // sets the icon image to the ImageIcon object
 
         int currentY = -100;
@@ -66,12 +66,12 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
             for (int j=0; j<8; j++){
                 ImageIcon aPiece;
                 if (i==1){
-                    aPiece = new ImageIcon("src/blackPawn.png");
+                    aPiece = new ImageIcon("src/images/blackPawn.png");
                     JLabel pieceLabel = new JLabel(aPiece);
                     tileMatrix[i][j].add(pieceLabel);
                     tileMatrix[i][j].isBlackPiece = true;
                 } else{
-                    aPiece = new ImageIcon("src/whitePawn.png");
+                    aPiece = new ImageIcon("src/images/whitePawn.png");
                     JLabel pieceLabel = new JLabel(aPiece);
                     tileMatrix[i][j].add(pieceLabel);
                     tileMatrix[i][j].isWhitePiece = true;
@@ -85,12 +85,12 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
             for (int j=0; j<8; j+=7){
                 ImageIcon aPiece;
                 if (i==0){
-                    aPiece = new ImageIcon("src/blackRook.png");
+                    aPiece = new ImageIcon("src/images/blackRook.png");
                     JLabel pieceLabel = new JLabel(aPiece);
                     tileMatrix[i][j].add(pieceLabel);
                     tileMatrix[i][j].isBlackPiece = true;
                 } else{
-                    aPiece = new ImageIcon("src/whiteRook.png");
+                    aPiece = new ImageIcon("src/images/whiteRook.png");
                     JLabel pieceLabel = new JLabel(aPiece);
                     tileMatrix[i][j].add(pieceLabel);
                     tileMatrix[i][j].isWhitePiece = true;
@@ -104,12 +104,12 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
             for (int j=1; j<7; j+=5){
                 ImageIcon aPiece;
                 if (i==0){
-                    aPiece = new ImageIcon("src/blackHorse.png");
+                    aPiece = new ImageIcon("src/images/blackHorse.png");
                     JLabel pieceLabel = new JLabel(aPiece);
                     tileMatrix[i][j].add(pieceLabel);
                     tileMatrix[i][j].isBlackPiece = true;
                 } else{
-                    aPiece = new ImageIcon("src/whiteHorse.png");
+                    aPiece = new ImageIcon("src/images/whiteHorse.png");
                     JLabel pieceLabel = new JLabel(aPiece);
                     tileMatrix[i][j].add(pieceLabel);
                     tileMatrix[i][j].isWhitePiece = true;
@@ -123,12 +123,12 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
             for (int j=2; j<6; j+=3){
                 ImageIcon aPiece;
                 if (i==0){
-                    aPiece = new ImageIcon("src/blackBishop.png");
+                    aPiece = new ImageIcon("src/images/blackBishop.png");
                     JLabel pieceLabel = new JLabel(aPiece);
                     tileMatrix[i][j].add(pieceLabel);
                     tileMatrix[i][j].isBlackPiece = true;
                 } else{
-                    aPiece = new ImageIcon("src/whiteBishop.png");
+                    aPiece = new ImageIcon("src/images/whiteBishop.png");
                     JLabel pieceLabel = new JLabel(aPiece);
                     tileMatrix[i][j].add(pieceLabel);
                     tileMatrix[i][j].isWhitePiece = true;
@@ -141,12 +141,12 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
         for (int i=0; i<8; i+=7){
             ImageIcon aPiece;
             if (i==0){
-                aPiece = new ImageIcon("src/blackKing.png");
+                aPiece = new ImageIcon("src/images/blackKing.png");
                 JLabel pieceLabel = new JLabel(aPiece);
                 tileMatrix[i][4].add(pieceLabel);
                 tileMatrix[i][4].isBlackPiece = true;
             } else{
-                aPiece = new ImageIcon("src/whiteKing.png");
+                aPiece = new ImageIcon("src/images/whiteKing.png");
                 JLabel pieceLabel = new JLabel(aPiece);
                 tileMatrix[i][4].add(pieceLabel);
                 tileMatrix[i][4].isWhitePiece = true;
@@ -158,12 +158,12 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
         for (int i=0; i<8; i+=7){
             ImageIcon aPiece;
             if (i==0){
-                aPiece = new ImageIcon("src/blackQueen.png");
+                aPiece = new ImageIcon("src/images/blackQueen.png");
                 JLabel pieceLabel = new JLabel(aPiece);
                 tileMatrix[i][3].add(pieceLabel);
                 tileMatrix[i][3].isBlackPiece = true;
             } else{
-                aPiece = new ImageIcon("src/whiteQueen.png");
+                aPiece = new ImageIcon("src/images/whiteQueen.png");
                 JLabel pieceLabel = new JLabel(aPiece);
                 tileMatrix[i][3].add(pieceLabel);
                 tileMatrix[i][3].isWhitePiece = true;
