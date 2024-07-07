@@ -586,7 +586,6 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
     }
 
     public void escapesCheck(Tile moveTo) {
-        // Save current state
         Tile originalTile = selectedTile;
         JLabel originalPiece = selectedPiece;
         Component pieceAtDestination = null;
@@ -595,7 +594,6 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
             pieceAtDestination = moveTo.getComponent(0);
         }
 
-        // Simulate the move
         selectedTile.remove(selectedPiece);
         selectedTile.revalidate();
 
@@ -607,11 +605,9 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
 
         updateBoardState(selectedTile,moveTo);
 
-        // Check if the king is still in check
         boolean kingStillInCheck = isKingInCheck();
 
         if (kingStillInCheck){
-            // Restore the original state
             moveTo.remove(selectedPiece);
             if (pieceAtDestination != null) {
                 moveTo.add(pieceAtDestination);
