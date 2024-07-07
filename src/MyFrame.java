@@ -192,7 +192,7 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
         }
     }
 
-    public void pawnPath(Tile source) {
+    public void pawnPath(Tile source)  {
         int r = source.tileRow;
         int c = source.tileColumn;
         source.mark();
@@ -585,6 +585,52 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
         whiteTurn = !whiteTurn;
     }
 
+    public void escapesCheck(Tile moveTo) {
+        // Save current state
+        Tile originalTile = selectedTile;
+        JLabel originalPiece = selectedPiece;
+        Component pieceAtDestination = null;
+
+        if (!moveTo.isEmpty()) {
+            pieceAtDestination = moveTo.getComponent(0);
+        }
+
+        // Simulate the move
+        selectedTile.remove(selectedPiece);
+        selectedTile.revalidate();
+
+        if (pieceAtDestination != null) {
+            moveTo.remove(pieceAtDestination);
+        }
+        moveTo.add(selectedPiece);
+        moveTo.revalidate();
+
+        updateBoardState(selectedTile,moveTo);
+
+        // Check if the king is still in check
+        boolean kingStillInCheck = isKingInCheck();
+
+        if (kingStillInCheck){
+            // Restore the original state
+            moveTo.remove(selectedPiece);
+            if (pieceAtDestination != null) {
+                moveTo.add(pieceAtDestination);
+            }
+            moveTo.revalidate();
+
+            originalTile.add(originalPiece);
+            originalTile.revalidate();
+            updateBoardState(moveTo,selectedTile);
+        }
+
+        selectedTile = null;
+        selectedPiece = null;
+        changeTurn();
+        clean();
+
+    }
+
+
     public void clean(){
         for (int i=0; i<8; i++){
             for (int j=0; j<8; j++){
@@ -607,8 +653,10 @@ public class MyFrame extends JFrame implements MouseListener,Runnable {
             selectedPiece = (JLabel) clickedTile.getComponent(0);
             clean();
             piecePath(clickedTile);
-        } else if ((clickedTile.isMarked() && clickedTile != selectedTile)) {
+        } else if ((clickedTile.isMarked() && clickedTile != selectedTile) && !isKingInCheck()) {
             movePiece(clickedTile);
+        }else if ((clickedTile.isMarked() && clickedTile != selectedTile) && isKingInCheck()) {
+            escapesCheck(clickedTile);
         } else {
             // Reset selection
             selectedTile = null;
